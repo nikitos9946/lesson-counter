@@ -1,13 +1,5 @@
-# Создать программу учета сделанных задач
-# Программа увключает в себя меню:
-# 1. Новое задание
-# 2. Список заданий
-# 3. Выход
 
-# -- Новое задание
-# Задание содержит поля Номер по порядку, Название, Дата создания, Дата завершения, Вознаграждение, Оплачено
-
-
+error_message = "Что-то пошно не так, повторите попытку"
 lessons_list = []
 def data():
     try:
@@ -34,6 +26,13 @@ def menu1():
     lesson_end_date = input("Введите дату окончания занятия ")
     lesson_raw_paid = input("Введите вознаграждение ")
     lesson_paid = input("Занятие оплачено? (Да/Нет) ")
+    if lesson_paid == "Да":
+        lesson_paid = "Оплачено"
+    elif lesson_paid == "Нет":
+        lesson_paid = "Не оплачено"
+    else:
+        print(error_message)
+        return
     with open("lessons.txt", "a", encoding = 'utf-8') as file:
         lesson = dict(number = lesson_number, name = lesson_name, cr_date = lesson_cr_date, end_date = lesson_end_date, raw_paid = lesson_raw_paid, paid = lesson_paid)
         lessons_list.append(lesson)
@@ -43,7 +42,7 @@ def menu2():
     print("Список занятий")
     print("____________________")
     for lesson in lessons_list:
-        print("Номер - " + lesson['number'] + "; " + "Название - " + lesson['name'] + "; " + "Дата создания - " + lesson['cr_date'] + "; " + "Дата завершения - " + lesson['end_date'] + "; " + "Вознаграждение - " + lesson['raw_paid'] + "; " + "Оплачено - " + lesson['paid'])
+        print("Номер - " + lesson['number'] + "; " + "Название - " + lesson['name'] + "; " + "Дата создания - " + lesson['cr_date'] + "; " + "Дата завершения - " + lesson['end_date'] + "; " + "Вознаграждение - " + lesson['raw_paid'] + "; " + "Оплата - " + lesson['paid'])
 data()
 while True:
     menu()
